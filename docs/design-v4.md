@@ -2,6 +2,8 @@
 
 Route: `/lp/demo/transaction-enrichment-v4` · ab_variant `te-v10-design` · page file `src/pages/lp/demo/transaction-enrichment-v4.astro` · styles and motion in `src/v4/`
 
+Preview: the Netlify Deploy Preview on this branch's PR, at `/lp/demo/transaction-enrichment-v4` (compare with `/lp/demo/transaction-enrichment-v3` on the same preview).
+
 v4 is v3 with a new visual design. It keeps v3's copy, section order, CTAs, form steps and tracking script. v3, the v2 control and the four ad-group pages build byte-for-byte the same as before.
 
 ---
