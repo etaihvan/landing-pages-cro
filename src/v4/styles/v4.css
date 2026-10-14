@@ -130,6 +130,10 @@ header.nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
 @media (min-width:1361px){ .nav-inner{border-inline:1px solid var(--rail)} }
 .logo{display:inline-flex;line-height:0;color:var(--forest)}
+.nav-links{display:flex;gap:clamp(20px, 2.4vw, 36px)}
+.nav-links a{font-size:var(--fs-sm);color:var(--ink-2);text-decoration:none;padding:6px 2px;border-radius:var(--r-1);transition:color var(--t-fast)}
+.nav-links a:hover{color:var(--ink)}
+main>section[id]{scroll-margin-top:64px}
 .logo svg{height:20px;width:auto}
 
 /* ---------- 5. Hero ---------- */
@@ -436,6 +440,7 @@ footer{background:var(--forest-deep);color:var(--on-dark-3)}
   .split-head .sec-sub{grid-column:8 / -1}
 }
 @media (max-width:960px){
+  .nav-links{display:none}
   .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "form" "demo";row-gap:40px}
   .hero h1{max-width:16ch}
   .hero-card{width:100%}
