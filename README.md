@@ -9,12 +9,16 @@ The four Google Ads landing pages, built with Astro from one shared layout. The 
 | /lp/demo/transaction-enrichment-providers | Providers, vendors, build vs buy, pricing | te-v8-providers |
 | /lp/demo/transaction-enrichment-api | transaction enrichment api, best transaction enrichment api | te-v8-api |
 | /lp/demo/transaction-categorization | transaction categorization (+ api), bank transaction categorization | te-v8-categorization |
-| /lp/demo/transaction-enrichment-v2 | Sandbox copy of the core page (not in any ad group yet) | te-v9-sandbox |
+| /lp/demo/transaction-enrichment-v2 | Sandbox copy of the core page; A/B control | te-v9-sandbox |
+| /lp/demo/transaction-enrichment-v3 | A/B challenger to v2 (see docs/ab-test-v3-challenger.md) | te-v9-challenger |
 
 The paths match the Unbounce page on explore.spade.com, so Google Ads final URLs survive the DNS switch. Pages build to `lp/demo/<slug>.html`, which Netlify serves at `/lp/demo/<slug>` with no trailing-slash redirect.
 
 ## Sandbox page
 `/lp/demo/transaction-enrichment-v2` (ab_variant `te-v9-sandbox`) is a copy of the core page for trying new ideas. Its page file is `src/pages/lp/demo/transaction-enrichment-v2.astro`, and everything it uses lives in `src/v2/` (its own layout, components, styles, form script and FAQs). Changes there never affect the four ad-group pages.
+
+## A/B challenger page
+`/lp/demo/transaction-enrichment-v3` is the challenger to v2. Its page file is `src/pages/lp/demo/transaction-enrichment-v3.astro`, and everything it uses lives in `src/v3/`. The strategy, test plan and launch checklist are in `docs/ab-test-v3-challenger.md`.
 
 ## Where to edit
 - **Per-page copy** (title, meta description, hero eyebrow / H1 / lede / stats, nav label, FAQ order, section order, ab_variant): `src/data/pages.ts`. Add a page by adding an entry there.
