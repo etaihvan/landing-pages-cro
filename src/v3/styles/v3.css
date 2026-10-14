@@ -1,0 +1,102 @@
+/* ---------- v3 challenger: layered on top of the forked base styles ---------- */
+
+/* Header: logo + one CTA */
+.nav-inner .logo{cursor:default}
+
+/* Hero: copy + form on top, before/after proof under the copy */
+.v3-hero{padding:56px 0 40px}
+.v3-hero .hero-grid{grid-template-columns:1.35fr .9fr;grid-template-areas:"copy form" "demo form";gap:28px 80px;align-items:start}
+.v3-hero-copy{grid-area:copy}
+.v3-hero #hero-form-card{grid-area:form;position:sticky;top:84px}
+.v3-demo{grid-area:demo}
+.v3-hero h1{font-size:clamp(40px,4.1vw,58px);line-height:1.04;max-width:760px;margin:16px 0 20px}
+.v3-hero p.lede{font-size:18px;max-width:640px;margin-bottom:22px;min-height:0}
+.v3-proof-line{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;margin:0;padding:0;font-size:14px;color:var(--ink-2)}
+.v3-proof-line b{font-family:var(--display);font-weight:500;color:var(--ink);font-size:17px;margin-right:4px}
+
+/* Before/after table */
+.v3-demo{border:1px solid var(--line);background:#fff}
+.v3-demo-h{display:grid;grid-template-columns:1fr 28px 1.15fr;padding:10px 18px;background:var(--panel);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.v3-demo-h span:last-child{grid-column:3}
+.v3-row{display:grid;grid-template-columns:1fr 28px 1.15fr;align-items:center;padding:14px 18px;border-top:1px solid var(--line)}
+.v3-raw small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#d2512b;margin-bottom:4px}
+.v3-raw code{font-family:var(--mono);font-size:13px;letter-spacing:.01em;word-break:break-word}
+.v3-arrow{font-family:var(--mono);color:var(--muted)}
+.v3-match{display:flex;gap:10px;align-items:flex-start}
+.v3-match .avatar{width:30px;height:30px;border-radius:4px;color:#fff;font-size:12px}
+.v3-match b{font-weight:500;font-size:15px;margin-right:6px}
+.v3-match .tag{vertical-align:2px}
+.v3-match small{display:block;font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.av-dg{background:var(--green)!important;color:var(--yellow)!important}
+.av-philz{background:#1c1c1c!important}
+
+/* Form card */
+.v3-card h3{font-size:22px;margin-bottom:6px}
+.v3-help{margin:0 0 14px;font-size:15px;color:var(--ink)}
+.v3-progress{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.v3-progress i{flex:1;height:3px;background:var(--panel-line);position:relative}
+.v3-progress b{position:absolute;inset:0 auto 0 0;background:var(--green)}
+.v3-vol{display:grid;gap:8px}
+.vol-opt{display:flex;justify-content:space-between;align-items:center;width:100%;background:#fff;border:1px solid var(--line);padding:14px 16px;cursor:pointer;font-family:var(--mono);font-size:14px;color:var(--ink);text-align:left;transition:border-color .15s, background .15s}
+.vol-opt::after{content:"→";color:var(--muted)}
+.vol-opt:hover,.vol-opt:focus-visible{border-color:var(--green);outline:none}
+.vol-opt[aria-pressed="true"]{border-color:var(--green);background:var(--sage-1)}
+.v3-next{margin:16px 0 0;font-family:var(--mono);font-size:11px;color:var(--ink-2);text-align:center;letter-spacing:.02em}
+.v3-card .lstep[data-step="done"].active ~ .v3-next{display:none}
+#hs-form-host.vol-answered .hs_numbers_of_monthly_transactions{display:none}
+
+/* Use-case chips inside the HubSpot form */
+.uc{grid-column:1/-1;margin:4px 0 14px}
+.uc-label{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-bottom:8px}
+.full-form .uc-label{font-size:13px;color:var(--ink)}
+.uc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.uc-chip{background:#fff;border:1px solid var(--line);padding:7px 10px;font-family:var(--mono);font-size:11.5px;color:var(--ink);cursor:pointer;border-radius:2px}
+.uc-chip:hover,.uc-chip:focus-visible{border-color:var(--green);outline:none}
+.uc-chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--lime)}
+
+/* Why match rates differ */
+.v3-why{padding:40px 0 90px}
+.v3-cases{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.v3-case{border-top:2px solid var(--ink);padding-top:16px;display:flex;flex-direction:column}
+.v3-case i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.v3-case h3{font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.01em;line-height:1.2;margin:8px 0 10px}
+.v3-case p{margin:0 0 16px;font-size:15px;color:var(--ink-2);flex:1}
+.v3-ex{background:var(--panel);padding:12px 14px;font-size:13px}
+.v3-ex code{display:block;font-family:var(--mono);font-size:12px;margin-bottom:4px}
+.v3-stats{padding:36px 0 32px}
+
+/* Compare */
+.v3-compare{padding-top:10px}
+
+/* What happens next */
+.v3-next-sec{padding:90px 0;background:var(--sage-1)}
+.v3-steps{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.v3-steps li{background:#fff;padding:26px 24px;clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% var(--cut),100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,var(--cut) 100%,0 calc(100% - var(--cut)),0 var(--cut))}
+.v3-steps i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green);color:var(--lime);font-family:var(--mono);font-size:13px}
+.v3-steps h3{font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:-.01em;margin:16px 0 8px}
+.v3-steps p{margin:0;font-size:15px;color:var(--ink-2)}
+.v3-after{margin:24px 0 0;font-size:15px;color:var(--ink-2)}
+.faq{padding-top:90px}
+
+@media (max-width: 1100px){
+  .v3-cases{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width: 960px){
+  .v3-hero .hero-grid{grid-template-columns:1fr;grid-template-areas:"copy" "form" "demo";gap:28px}
+  .v3-hero #hero-form-card{position:static}
+  .v3-steps{grid-template-columns:1fr}
+}
+@media (max-width: 640px){
+  .v3-hero{padding:28px 0 24px}
+  .v3-hero h1{font-size:34px}
+  .v3-hero p.lede{font-size:16px}
+  .v3-cases{grid-template-columns:1fr}
+  .v3-demo-h{display:none}
+  .v3-row{grid-template-columns:1fr;gap:6px;padding:12px 14px}
+  .v3-arrow{display:none}
+  .v3-next-sec{padding:64px 0}
+  .faq{padding-top:64px}
+}
+
+/* Anchor jumps land below the sticky header */
+#hero-form-card,#demo{scroll-margin-top:80px}

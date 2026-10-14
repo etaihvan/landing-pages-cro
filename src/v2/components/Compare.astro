@@ -1,0 +1,25 @@
+---
+interface Props { eyebrow: string }
+const { eyebrow } = Astro.props;
+---
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 class="sec-h">How Spade compares to other transaction enrichment providers</h2>
+    <p class="sec-sub">Each one has a place. Here is where each leaves you.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th></th><th class="spade">Spade</th><th>String-based enrichment</th><th>Card network data</th><th>Building in-house</th></tr></thead>
+        <tbody>
+          <tr><th>Where it fits</th><td class="spade">Teams that act on the merchant: in the app, rewards, controls, and models</td><td>Quick to switch on, often bundled with account data</td><td>Already in your stack, with cleaner card names</td><td>Full control, and your team knows your data best</td></tr>
+          <tr><th>How the merchant is found</th><td class="spade">A lookup against a verified record of 99.9% of US and Canadian businesses</td><td>Inferred from the string and its category code</td><td>The network's own records for its own transactions</td><td>Rules, regex, or a Gen AI model your team maintains</td></tr>
+          <tr><th>Long tail and third-party charges</th><td class="spade">The local merchant, and the verified business behind the delivery app or processor</td><td>The platform's name, or a best guess</td><td>Cleaner card names, on its own network only</td><td>Breaks down past the big brands</td></tr>
+          <tr><th>Rails covered</th><td class="spade">Card, ACH, wire, RTP, ATM, checks, and internal transfers</td><td>Depends on the vendor and the fields it receives</td><td>One network's card transactions</td><td>Whatever you build for</td></tr>
+          <tr><th>One ID for each business</th><td class="spade">One counterparty ID for every location, the same on every rail</td><td>The same merchant under dozens of identifiers</td><td>Merchant IDs (MIDs) rotate and are shared</td><td>A list you keep updating by hand</td></tr>
+          <tr><th>Who keeps it current</th><td class="spade">Spade, as merchants open, close, rename, and move</td><td>The vendor, for its own slice</td><td>The network, for its own merchants</td><td>A permanent team of your engineers</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a class="btn btn-dark" href="#demo" data-cta="compare">Get a demo</a>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+---
+// Shell for the v3 challenger page only. Changes here do not affect any other page.
+import './styles/fonts.css';
+import './styles/lp.css';
+import './styles/v3.css';
+import logoFallbackJs from './scripts/logo-fallback.js?raw';
+import lpJs from './scripts/lp.js?raw';
+
+interface Props { title: string; description: string; abVariant: string }
+const { title, description, abVariant } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WQ7PPT3Q');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Paid landing page: keep out of organic search -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>{title}</title>
+<link rel="icon" type="image/svg+xml" href="https://spade.com/favicons/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="https://spade.com/favicons/favicon-96x96.png">
+<link rel="icon" type="image/x-icon" href="https://spade.com/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="https://spade.com/favicons/apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content="https://spadewp.wpenginepowered.com/wp-content/uploads/2025/07/OpenGraph.webp">
+<meta name="twitter:card" content="summary_large_image">
+<script is:inline set:html={logoFallbackJs} />
+<meta name="description" content={description}>
+
+<!-- Spade brand fonts (served from spade.com) -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://spade.com/_next/static/media/NaNSuperXSansDisplay_VF_TRIAL-s.p.55b41e97.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://spade.com/_next/static/media/FTPolar_Regular-s.p.61d92bfa.woff2">
+
+<!-- Start of HubSpot Embed Code -->
+<script is:inline type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/51552623.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+<!-- RevenueHero scheduler -->
+<script is:inline type="text/javascript" src="https://assets.revenuehero.io/scheduler.min.js"></script>
+</head>
+<body data-ab-variant={abVariant}>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ7PPT3Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<slot />
+
+<!-- HubSpot forms v2 (legacy form embed) -->
+<script is:inline charset="utf-8" type="text/javascript" src="https://js.hsforms.net/forms/embed/v2.js"></script>
+<script is:inline set:html={lpJs} />
+</body>
+</html>

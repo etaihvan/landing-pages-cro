@@ -1,0 +1,207 @@
+---
+// A/B challenger to /lp/demo/transaction-enrichment-v2 (the control).
+// Concept: "prove it on your own transactions". Everything it uses lives in src/v3/,
+// so edits here never touch the control or the four live ad-group pages.
+import LandingLayout from '../../../v3/LandingLayout.astro';
+import Header from '../../../v3/components/Header.astro';
+import Logos from '../../../v3/components/Logos.astro';
+import Proof from '../../../v3/components/Proof.astro';
+import Footer from '../../../v3/components/Footer.astro';
+
+const page = {
+  abVariant: 'te-v9-challenger',
+  title: 'Transaction Enrichment | Spade',
+  description: 'Spade looks every transaction up in a verified record of 99.9% of US and Canadian businesses, so the long-tail, third-party and ACH charges come back right. See it on your own transactions.',
+};
+
+// Raw strings and matches already shown on spade.com and the control page.
+const examples = [
+  { kind: 'Long tail', raw: 'PY *KBC01 BRAYTON', name: 'Kaladi Brothers Coffee', detail: 'Cafes · Anchorage, AK', via: 'via Payrix', av: 'K', avClass: 'av-kaladi' },
+  { kind: 'Third party', raw: 'DD *DOORDASH DOLLARGEN', name: 'Dollar General', detail: 'Discount stores', via: 'via DoorDash', av: 'DG', avClass: 'av-dg' },
+  { kind: 'Marketplace', raw: 'IC* COSTCO BY INSTACAR', name: 'Costco', detail: 'The store, not the delivery app', via: 'via Instacart', av: 'C', avClass: 'av-costco' },
+  { kind: 'Mobile order', raw: 'SQ *PHILZ MOBILE', name: 'Philz Coffee', detail: 'Food and Drink › Cafes', via: '', av: 'P', avClass: 'av-philz' },
+];
+
+const hardCases = [
+  { n: '01', h: 'The long tail, down to the address', b: "Small, local, and new businesses other approaches miss, with the store's address.", ex: ['PY *KBC01 BRAYTON', 'Kaladi Brothers Coffee, Anchorage'] },
+  { n: '02', h: 'The business behind the third party', b: 'The verified merchant behind a delivery app, a processor, an app store, or a marketplace, with the third party named alongside it.', ex: ['GOOGLE *Crunchyroll An', 'Crunchyroll, not Google'] },
+  { n: '03', h: 'One merchant on every rail', b: 'Card, ACH, wire, RTP, ATM, checks, and internal transfers resolve to the same verified merchant, under one counterparty ID.', ex: ['AWS by card, ACH or wire', 'One counterparty ID'] },
+  { n: '04', h: 'Kept current as merchants change', b: 'Merchant IDs (MIDs) rotate, processors change, and businesses change hands. Spade keeps pace, so the match holds.', ex: ['Same terminal, new business', 'Matched to the new business'] },
+];
+
+const steps = [
+  { n: '1', h: 'Pick a time', b: 'The calendar opens as soon as you send the form. 30 minutes with our enrichment team.' },
+  { n: '2', h: 'Share the transactions you care about', b: "We'll email how to share a sample. Transaction fields only: no customer names, account numbers, or card numbers." },
+  { n: '3', h: 'See your match results, then talk pricing', b: 'Your sample shows coverage and accuracy on your own data. Pricing is per transaction, sized to your volume.' },
+];
+
+const faqs = [
+  { q: 'How is Spade different from other transaction enrichment providers?', a: 'Most providers infer the merchant from the string they receive. Spade looks each transaction up in its merchant graph, so every match is a lookup, not a guess. That is why it holds on the long tail, on charges routed through a third party, across every location of a brand, as merchants change, and on every rail.' },
+  { q: 'What do 99.9% coverage and >99% accuracy measure?', a: "99.9% is the share of US and Canadian businesses in Spade's merchant graph. >99% is how often a card match is correct. Your sample shows both." },
+  { q: 'What data do you need? Is any of it PII?', a: 'No PII, by design. Spade needs only the transaction fields: no customer names, account numbers, or card numbers. And Spade is SOC 2 Type 2.' },
+  { q: 'How does pricing work?', a: "Per transaction, sized to your volume. We'll cover it on the first call." },
+  { q: 'How long does integration take?', a: 'Unit had its enrichment live in less than two weeks. You can start with a batch of your history before you integrate the real-time API.' },
+];
+---
+<LandingLayout title={page.title} description={page.description} abVariant={page.abVariant}>
+  <Header />
+  <main>
+    <!-- HERO: one promise, a concrete before/after, and the form -->
+    <section class="hero v3-hero">
+      <div class="wrap hero-grid">
+        <div class="v3-hero-copy">
+          <div class="eyebrow">[Transaction enrichment]</div>
+          <h1>Transaction enrichment that gets the hard transactions right.</h1>
+          <p class="lede">The local merchant, the order placed through DoorDash, the charge hidden behind a processor. Spade looks each one up in a verified record of 99.9% of US and Canadian businesses instead of guessing from the string. See the difference on your own transactions.</p>
+          <ul class="v3-proof-line" aria-label="Key facts">
+            <li><b>&gt;99%</b> card match accuracy</li>
+            <li><b>&lt;40ms</b> p99 latency</li>
+            <li><b>No PII</b> · SOC 2 Type 2</li>
+          </ul>
+        </div>
+
+        <!-- HERO FORM: step 1 volume (one tap) -> step 2 HubSpot contact fields -> RevenueHero scheduler -->
+        <div class="form-card lead-card v3-card" id="hero-form-card" data-card="hero">
+          <div class="lstep active" data-step="qualify">
+            <div class="v3-progress"><span>Step 1 of 2</span><i><b style="width:50%"></b></i></div>
+            <h3>Get a demo on your own transactions</h3>
+            <p class="v3-help">How many transactions do you process each month?</p>
+            <div data-volume-opts class="v3-vol" role="group" aria-label="Transactions each month"></div>
+            <div class="err" data-err></div>
+          </div>
+          <div class="lstep" data-step="contact">
+            <div class="v3-progress"><span>Step 2 of 2</span><i><b style="width:100%"></b></i></div>
+            <h3>Where should we send the invite?</h3>
+            <div class="hs-slot"></div>
+            <button type="button" class="back" data-back>← Change volume</button>
+          </div>
+          <div class="lstep" data-step="done">
+            <div class="booked">
+              <div class="tick">✓</div>
+              <h3 data-done-title>Thanks. Your scheduler is opening.</h3>
+              <p data-done-body style="margin:0;font-size:14px;color:var(--ink-2)">Pick a time with our enrichment team in the window that just opened.</p>
+            </div>
+          </div>
+          <p class="v3-next">Next, you pick a time. 30 minutes, no PII needed.</p>
+        </div>
+
+        <!-- Before/after: what Spade returns for strings other approaches get wrong -->
+        <div class="v3-demo" aria-label="Example matches">
+          <div class="v3-demo-h"><span>Raw transaction</span><span>What Spade returns</span></div>
+          {examples.map((e) => (
+            <div class="v3-row">
+              <div class="v3-raw"><small>▸ {e.kind}</small><code>{e.raw}</code></div>
+              <div class="v3-arrow" aria-hidden="true">→</div>
+              <div class="v3-match">
+                <div class={`avatar ${e.avClass}`}>{e.av}</div>
+                <div><b>{e.name}</b>{e.via && <span class="tag">{e.via}</span>}<small>{e.detail}</small></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Logos />
+
+    <!-- WHY PROVIDERS DISAGREE: lookup vs guess, shown on the four hard cases -->
+    <section class="v3-why" id="how">
+      <div class="wrap">
+        <div class="eyebrow">[Why match rates differ]</div>
+        <h2 class="sec-h">Most providers guess the merchant from the string. Spade looks it up.</h2>
+        <p class="sec-sub">On a big-brand charge, most providers look the same. The difference shows on the charges that cause disputes, missed rewards, and wrong categories.</p>
+        <div class="v3-cases">
+          {hardCases.map((c) => (
+            <div class="v3-case">
+              <i>{c.n}</i>
+              <h3>{c.h}</h3>
+              <p>{c.b}</p>
+              <div class="v3-ex"><code>{c.ex[0]}</code><span>→ {c.ex[1]}</span></div>
+            </div>
+          ))}
+        </div>
+        <div class="bigstats v3-stats">
+          <div class="bracket"><div class="lbl">Card match accuracy: every match is a lookup</div><div class="num">&gt;99%</div></div>
+          <div class="bracket"><div class="lbl">p99 latency, inside the authorization window</div><div class="num">&lt;40ms</div></div>
+          <div class="bracket"><div class="lbl">Of US and Canadian businesses in Spade's merchant graph</div><div class="num">99.9%</div></div>
+        </div>
+        <a class="btn btn-dark" href="#demo" data-cta="why">Get a demo on your own transactions</a>
+      </div>
+    </section>
+
+    <!-- COMPARE: the four rows that matter to someone choosing a provider -->
+    <section class="compare v3-compare" id="compare">
+      <div class="wrap">
+        <div class="eyebrow">[Your options, compared]</div>
+        <h2 class="sec-h">How Spade compares to other ways of getting the merchant</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th class="spade">Spade</th><th>String-based enrichment</th><th>Card network data</th><th>Building in-house</th></tr></thead>
+            <tbody>
+              <tr><th>How the merchant is found</th><td class="spade">A lookup against a verified record of 99.9% of US and Canadian businesses</td><td>Inferred from the string and its category code</td><td>The network's own records for its own transactions</td><td>Rules, regex, or a Gen AI model your team maintains</td></tr>
+              <tr><th>Long tail and third-party charges</th><td class="spade">The local merchant, and the verified business behind the delivery app or processor</td><td>The platform's name, or a best guess</td><td>Cleaner card names, on its own network only</td><td>Breaks down past the big brands</td></tr>
+              <tr><th>Rails covered</th><td class="spade">Card, ACH, wire, RTP, ATM, checks, and internal transfers</td><td>Depends on the vendor and the fields it receives</td><td>One network's card transactions</td><td>Whatever you build for</td></tr>
+              <tr><th>Who keeps it current</th><td class="spade">Spade, as merchants open, close, rename, and move</td><td>The vendor, for its own slice</td><td>The network, for its own merchants</td><td>A permanent team of your engineers</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <Proof />
+
+    <!-- WHAT HAPPENS NEXT: removes the "what am I signing up for" doubt -->
+    <section class="v3-next-sec ruled" id="next">
+      <div class="wrap">
+        <div class="eyebrow">[What happens after you book]</div>
+        <h2 class="sec-h">A demo on your data, not a slide deck</h2>
+        <ol class="v3-steps">
+          {steps.map((s) => (
+            <li><i>{s.n}</i><h3>{s.h}</h3><p>{s.b}</p></li>
+          ))}
+        </ol>
+        <p class="v3-after">When you're ready to integrate, start with a batch of your history before the real-time API. Unit was live in under two weeks.</p>
+      </div>
+    </section>
+
+    <!-- FAQ: the objections a buyer raises before booking -->
+    <section class="faq" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <div class="eyebrow">[FAQ]</div>
+          <h2 class="sec-h">Before you book</h2>
+        </div>
+        <div id="faq-list">
+          {faqs.map((f, i) => (
+            <div class={i === 0 ? 'qa open' : 'qa'}><button type="button" aria-expanded={i === 0 ? 'true' : 'false'}>{f.q}<span class="pm">+</span></button><div class="a"><div><p>{f.a}</p></div></div></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA: full single-step form -->
+    <section class="final ruled" id="demo">
+      <div class="wrap final-grid">
+        <div>
+          <h2>See Spade on <em>your own transactions</em></h2>
+          <p>30 minutes with our enrichment team, on the charges you care about.</p>
+          <div class="assure">No PII needed · SOC 2 Type 2 · Pricing sized to your volume</div>
+        </div>
+        <div class="form-card lead-card full-form" id="final-form-card" data-card="final">
+          <div class="lstep active" data-step="contact">
+            <div class="hs-slot"></div>
+          </div>
+          <div class="lstep" data-step="done">
+            <div class="booked">
+              <div class="tick">✓</div>
+              <h3 data-done-title>Thanks. Your scheduler is opening.</h3>
+              <p data-done-body style="margin:0;font-size:14px;color:var(--ink-2)">Pick a time with our enrichment team in the window that just opened.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <div class="mobile-cta" id="mobile-cta"><a class="btn btn-dark" href="#hero-form-card" data-cta="mobile-sticky">Get a demo on your own transactions</a></div>
+</LandingLayout>
