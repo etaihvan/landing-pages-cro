@@ -11,6 +11,7 @@ The four Google Ads landing pages, built with Astro from one shared layout. The 
 | /lp/demo/transaction-categorization | transaction categorization (+ api), bank transaction categorization | te-v8-categorization |
 | /lp/demo/transaction-enrichment-v2 | Sandbox copy of the core page; A/B control | te-v9-sandbox |
 | /lp/demo/transaction-enrichment-v3 | A/B challenger to v2 (see docs/ab-test-v3-challenger.md) | te-v9-challenger |
+| /lp/demo/transaction-enrichment-v4 | Design-only redesign of v3: same copy, form and tracking (see docs/design-v4.md) | te-v10-design |
 
 The paths match the Unbounce page on explore.spade.com, so Google Ads final URLs survive the DNS switch. Pages build to `lp/demo/<slug>.html`, which Netlify serves at `/lp/demo/<slug>` with no trailing-slash redirect.
 
@@ -19,6 +20,8 @@ The paths match the Unbounce page on explore.spade.com, so Google Ads final URLs
 
 ## A/B challenger page
 `/lp/demo/transaction-enrichment-v3` is the challenger to v2. Its page file is `src/pages/lp/demo/transaction-enrichment-v3.astro`, and everything it uses lives in `src/v3/`. The strategy, test plan and launch checklist are in `docs/ab-test-v3-challenger.md`.
+
+`/lp/demo/transaction-enrichment-v4` is a design-only pass on v3. The copy, section order and form are v3's; the page runs v3's `lp.js` unchanged, so a fix to the form or tracking in `src/v3/scripts/lp.js` applies to both pages. Its styles, layout and the small reveal script live in `src/v4/` (tokens are at the top of `src/v4/styles/v4.css`). The design rationale and QA notes are in `docs/design-v4.md`.
 
 ## Where to edit
 - **Per-page copy** (title, meta description, hero eyebrow / H1 / lede / stats, nav label, FAQ order, section order, ab_variant): `src/data/pages.ts`. Add a page by adding an entry there.
