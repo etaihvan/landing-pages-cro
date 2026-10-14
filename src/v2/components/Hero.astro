@@ -1,0 +1,41 @@
+---
+import type { LandingPage } from '../../data/pages';
+interface Props { hero: LandingPage['hero'] }
+const { eyebrow, h1, lede, stats } = Astro.props.hero;
+// Set the example transaction string in the mono style.
+const line = (text: string) => text.replace('SQ *PHILZ MOBILE', '<code class="str">SQ *PHILZ MOBILE</code>');
+---
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">{eyebrow}</div>
+      <h1><span class="l" set:html={line(h1[0])} /> <span class="l" set:html={line(h1[1])} /> <span class="l" set:html={line(h1[2])} /></h1>
+      <p class="lede">{lede}</p>
+      <div class="stats-row">
+        {stats.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+      </div>
+    </div>
+
+    <!-- HERO FORM: step 1 qualify (custom) -> step 2 HubSpot form -> RevenueHero scheduler pops up -->
+    <div class="form-card lead-card" id="hero-form-card" data-card="hero">
+        <div class="lstep active" data-step="qualify">
+          <h3>How many transactions do you process each month?</h3>
+          <div data-volume-opts></div>
+          <div class="err" data-err></div>
+          <button type="button" class="btn btn-dark btn-block" data-next>Next →</button>
+        </div>
+        <div class="lstep" data-step="contact">
+          <h3>Where should we send the invite?</h3>
+          <div class="hs-slot"></div>
+          <button type="button" class="back" data-back>← Back</button>
+        </div>
+        <div class="lstep" data-step="done">
+          <div class="booked">
+            <div class="tick">✓</div>
+            <h3 data-done-title>Thanks. Your scheduler is opening.</h3>
+            <p data-done-body style="margin:0;font-size:14px;color:var(--ink-2)">Pick a time with our enrichment team in the window that just opened.</p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>

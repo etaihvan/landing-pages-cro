@@ -1,0 +1,48 @@
+---
+// Sandbox copy of the core transaction-enrichment page.
+// Everything it uses lives in src/v2/, so edits here never touch the four live ad-group pages.
+import LandingLayout from '../../../v2/LandingLayout.astro';
+import Nav from '../../../v2/components/Nav.astro';
+import Hero from '../../../v2/components/Hero.astro';
+import Logos from '../../../v2/components/Logos.astro';
+import WrongMerchant from '../../../v2/components/WrongMerchant.astro';
+import MerchantGraph from '../../../v2/components/MerchantGraph.astro';
+import Compare from '../../../v2/components/Compare.astro';
+import Proof from '../../../v2/components/Proof.astro';
+import Faq from '../../../v2/components/Faq.astro';
+import FinalCta from '../../../v2/components/FinalCta.astro';
+import Footer from '../../../v2/components/Footer.astro';
+import MobileCta from '../../../v2/components/MobileCta.astro';
+
+const page = {
+  abVariant: 'te-v9-sandbox',
+  title: 'Transaction Enrichment | Spade',
+  description: 'Spade turns messy transaction data into structured, verified records: the verified merchant, its category, and its location.',
+  hero: {
+    eyebrow: '[Transaction data enrichment]',
+    h1: ['Transaction enrichment', 'that knows SQ *PHILZ MOBILE', 'is Philz Coffee.'] as [string, string, string],
+    lede: 'Spade turns messy transaction data into verified records. It looks every transaction up in its merchant graph, which covers 99.9% of US and Canadian businesses, and returns the merchant, its category, and its location.',
+    stats: [
+      { value: '>99%', label: 'accurate: every match is a lookup' },
+      { value: '<40ms', label: 'p99, inside the authorization window' },
+      { value: 'Every rail', label: 'one counterparty ID per business' },
+    ] as [{ value: string; label: string }, { value: string; label: string }, { value: string; label: string }],
+  },
+  faq: ['different', 'categorize', 'coverage', 'pii', 'pricing', 'integration', 'only-enrichment'] as const,
+};
+---
+<LandingLayout title={page.title} description={page.description} abVariant={page.abVariant}>
+  <Nav compareLabel="How Spade compares" />
+  <main>
+    <Hero hero={page.hero} />
+    <Logos />
+    <WrongMerchant />
+    <MerchantGraph />
+    <Compare eyebrow="[How Spade compares]" />
+    <Proof />
+    <Faq order={[...page.faq]} />
+    <FinalCta />
+  </main>
+  <Footer />
+  <MobileCta />
+</LandingLayout>
