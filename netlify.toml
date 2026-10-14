@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# The bare domain goes to the main site.
+[[redirects]]
+  from = "/"
+  to = "https://www.spade.com/"
+  status = 302
+
+# To keep an old Unbounce URL working, add a block like this:
+# [[redirects]]
+#   from = "/lp/old-page"
+#   to = "/lp/demo/transaction-enrichment"
+#   status = 301
+
+# Paid landing pages stay out of organic search (each page also has a noindex meta tag).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

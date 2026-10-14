@@ -1,0 +1,18 @@
+---
+import { faqs, type FaqId } from '../data/faqs';
+interface Props { order: FaqId[] }
+const { order } = Astro.props;
+---
+<section class="faq" id="faq">
+  <div class="wrap faq-grid">
+    <div>
+      <div class="eyebrow">[FAQ]</div>
+      <h2 class="sec-h">Questions teams ask before they test</h2>
+    </div>
+    <div id="faq-list">
+      {order.map((id, i) => (
+        <div class={i === 0 ? 'qa open' : 'qa'}><button type="button" aria-expanded={i === 0 ? 'true' : 'false'}><Fragment set:html={faqs[id].q} /><span class="pm">+</span></button><div class="a"><div set:html={faqs[id].a} /></div></div>
+      ))}
+    </div>
+  </div>
+</section>

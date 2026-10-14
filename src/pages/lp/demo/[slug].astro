@@ -1,0 +1,39 @@
+---
+import LandingLayout from '../../../layouts/LandingLayout.astro';
+import Nav from '../../../components/Nav.astro';
+import Hero from '../../../components/Hero.astro';
+import Logos from '../../../components/Logos.astro';
+import ApiSection from '../../../components/ApiSection.astro';
+import WrongMerchant from '../../../components/WrongMerchant.astro';
+import MerchantGraph from '../../../components/MerchantGraph.astro';
+import Compare from '../../../components/Compare.astro';
+import Proof from '../../../components/Proof.astro';
+import Faq from '../../../components/Faq.astro';
+import FinalCta from '../../../components/FinalCta.astro';
+import Footer from '../../../components/Footer.astro';
+import MobileCta from '../../../components/MobileCta.astro';
+import { pages, type LandingPage } from '../../../data/pages';
+
+export function getStaticPaths() {
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: LandingPage };
+---
+<LandingLayout title={page.title} description={page.description} abVariant={page.abVariant}>
+  <Nav compareLabel={page.nav.compareLabel} showApi={page.nav.showApi} />
+  <main>
+    <Hero hero={page.hero} />
+    <Logos />
+    {page.compareFirst && <Compare eyebrow={page.compareEyebrow} />}
+    {page.apiSection && <ApiSection />}
+    <WrongMerchant />
+    <MerchantGraph />
+    {!page.compareFirst && <Compare eyebrow={page.compareEyebrow} />}
+    <Proof />
+    <Faq order={page.faq} />
+    <FinalCta />
+  </main>
+  <Footer />
+  <MobileCta />
+</LandingLayout>
